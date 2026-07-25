@@ -1,0 +1,6 @@
+﻿@font-face {
+	font-family: "isans";
+	src: url(isans.woff) format("woff"), url(isans.ttf) format("truetype");
+	font-weight: normal;
+	font-style: normal
+}

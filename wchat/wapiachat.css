@@ -1,0 +1,54 @@
+#wapiachatbtn{
+    z-index:10000; position:fixed;bottom:30px;right:30px; width: 56px;height: 56px;
+    animation: bounce2 20s ease infinite;
+}
+@keyframes gelatine {
+from, to { transform: scale(1, 1); }
+2.5% { transform: scale(0.9, 1.1); }
+5.0% { transform: scale(1.1, 0.9); }
+7.5% { transform: scale(0.95, 1.05); }
+}
+
+@keyframes bounce2 {
+0%, 2.0%, 5.0%, 8.0%, 10.0% {transform: translateY(0);}
+4.0% {transform: translateY(-30px);}
+6.0% {transform: translateY(-15px);}
+}
+
+#wapiachatbtn .wchaticon{ position: absolute; right: 0; }
+
+#wapiachatbtn .wchatlbli{
+    display: block;
+    padding-left: 10px;
+	padding-right: 35px;
+	
+}
+
+#wapiachatbtn .wchatlbl{
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, .5);
+    transition: width 500ms ease-in;
+    width: 0px;
+    overflow: hidden;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    right:20px;
+    background-color: #111;
+    max-height:35px;
+    border:3px #fff solid;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 3px 8px;
+    
+    font-size: 14px;
+    text-align: left;
+    z-index: -1;
+}
+#wapiachatbtn:hover .wchatlbl{
+      width: 175px;
+}
+.svgshadow {
+    -webkit-filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
+    /* Similar syntax to box-shadow */
+  }
