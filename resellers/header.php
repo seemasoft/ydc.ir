@@ -70,6 +70,7 @@ body,span,div,p,table ,h1,h2,h3,h4,h5,h6 {
 				<li class="dropdown" ><a href="#"  class="dropdown-toggle" data-toggle="dropdown" >مدیریت</a>
 				<ul class="dropdown-menu">
 				<li><a href="resellerlist.php" >لیست نمایندگان </a></li>
+				<li><a href="invoice.php" >صدور فاکتور دستی</a></li>
 			</ul>	</li>
 			<? } ?>
 <li><a href="payrequest.php" >درخواست واریز</a></li>
