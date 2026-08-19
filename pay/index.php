@@ -13,7 +13,6 @@ $errors = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
     $name = trim(r('name'));
     $mobile = trim(r('mobile'));
-    $email = trim(r('email'));
     $mablagh = intval(latinnumber(trim(r('mablagh'))));
     $onvan = trim(r('onvan'));
 
@@ -21,10 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
         $errors[] = "لطفا نام و نام خانوادگی را وارد نمایید.";
     } elseif (strpos($name, "ا") === false && strpos($name, "ب") === false && strpos($name, "ی") === false && strpos($name, "ه") === false && strpos($name, "ر") === false && strpos($name, "م") === false && strpos($name, "د") === false && strpos($name, "ح") === false && strpos($name, "ز") === false && strpos($name, "ل") === false) {
         $errors[] = "لطفا برای وارد کردن نام و نام خانوادگی از حروف فارسی استفاده نمایید.";
-    }
-
-    if (empty($mobile)) {
-        $errors[] = "لطفا شماره موبایل / تماس را وارد نمایید.";
     }
 
     if ($mablagh < 1000) {
@@ -53,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
         rsadd("mablagh", $mablagh);
         rsadd("name", sql($name));
         rsadd("mobile", sql($mobile));
-        rsadd("email", sql($email));
         rsadd("onvan", sql($onvan));
         rsadd("timestamp", time());
         rsadd("tarikh", dateshamsi());
@@ -121,30 +115,23 @@ include_once("../header.php");
         </div>
 
         <div class="control-group" style="margin-bottom: 15px;">
-            <label class="control-label" for="mobile" style="font-weight: bold;">شماره موبایل / تماس <span style="color:red;">*</span>:</label>
-            <div class="controls">
-                <input type="text" id="mobile" name="mobile" class="form-control span12" required value="<?= isset($_POST['mobile']) ? htmlspecialchars($_POST['mobile']) : '' ?>" placeholder="مثلا: ۰۹۱۲۳۴۵۶۷۸۹">
-            </div>
-        </div>
-
-        <div class="control-group" style="margin-bottom: 15px;">
-            <label class="control-label" for="email" style="font-weight: bold;">پست الکترونیک (ایمیل):</label>
-            <div class="controls">
-                <input type="email" id="email" name="email" class="form-control span12" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" placeholder="info@example.com">
-            </div>
-        </div>
-
-        <div class="control-group" style="margin-bottom: 15px;">
             <label class="control-label" for="mablagh" style="font-weight: bold;">مبلغ پرداخت (ریال) <span style="color:red;">*</span>:</label>
             <div class="controls">
                 <input type="number" id="mablagh" name="mablagh" class="form-control span12" min="1000" step="1000" required value="<?= isset($_POST['mablagh']) ? htmlspecialchars($_POST['mablagh']) : '' ?>" placeholder="مثلا: ۵۰۰۰۰۰">
             </div>
         </div>
 
-        <div class="control-group" style="margin-bottom: 20px;">
-            <label class="control-label" for="onvan" style="font-weight: bold;">شرح / بابت پرداخت <span style="color:red;">*</span>:</label>
+        <div class="control-group" style="margin-bottom: 15px;">
+            <label class="control-label" for="onvan" style="font-weight: bold;">توضیحات / شرح پرداخت <span style="color:red;">*</span>:</label>
             <div class="controls">
                 <textarea id="onvan" name="onvan" class="form-control span12" rows="3" required placeholder="علت یا شرح پرداخت خود را وارد نمایید..."><?= isset($_POST['onvan']) ? htmlspecialchars($_POST['onvan']) : '' ?></textarea>
+            </div>
+        </div>
+
+        <div class="control-group" style="margin-bottom: 15px;">
+            <label class="control-label" for="mobile" style="font-weight: bold;">تلفن تماس (اختیاری):</label>
+            <div class="controls">
+                <input type="text" id="mobile" name="mobile" class="form-control span12" value="<?= isset($_POST['mobile']) ? htmlspecialchars($_POST['mobile']) : '' ?>" placeholder="مثلا: ۰۹۱۲۳۴۵۶۷۸۹">
             </div>
         </div>
 
