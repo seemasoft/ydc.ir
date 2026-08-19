@@ -12,12 +12,12 @@ include("header.php") ;
                 <div class="container support">
                    <div class="row">
                       <div class="span6">
-                        <a rel="nofollow" href="http://portal.ydc.ir/newticket.php?cat=1">
+                        <a rel="nofollow" target="_blank" href="https://ble.ir/seemasoftrobot">
 						   <img src="images/contact/poshtibani1.png" alt="پشتیبانی فروش " class="img-responsive imgf">
 						</a>
                       </div>
                       <div class="span6">
-                         <a rel="nofollow" href="http://portal.ydc.ir/support.php">
+                         <a rel="nofollow" href="https://ble.ir/seemasoftrobot">
                             <img src="images/contact/poshtibani2.png" alt="پشتیبانی فنی" class="img-responsive imgf" >
                           </a>  
                       </div>
@@ -26,10 +26,9 @@ include("header.php") ;
                 
                 <div class="container">
                     <div class="span9 center contact-info rtl">
-                    <p>تلفن های بخش مشاوره و فروش: &nbsp;&nbsp;  ۳۲۳۲۴۴۶۶  &nbsp; ۰۷۱ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ۳۲۳۶۰۵۲۱  &nbsp;  ۰۷۱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ۲ ۵۸۵ ۵۸۵ ۰۹۲۱ </p>
+                    <p>تلفن  بخش مشاوره و فروش: &nbsp;&nbsp;    &nbsp;   &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ۲ ۵۸۵ ۵۸۵ ۰۹۲۱ </p>
                         <p>ساعات پاسخگویی تلفنی بخش فروش:  روز های یکشنبه تا پنجشنبه از ساعت 9 
 						الی 14:30 </p><p style="color:red">لطفا جهت درخواست پشتیبانی فنی حتما از بخش پشتیبانی فنی استفاده فرمایید </p>
-                        <p class="info-mail">پست الکترونیکی :  support  (at) ydc .ir</p>
                        
                                          </div>
                     

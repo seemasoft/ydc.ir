@@ -68,7 +68,7 @@
 </li>
 
 <li>
-<a href="/contact.php">پشتیبانی</a>
+<a rel="nofollow" href="/contact.php">پشتیبانی</a>
 </li> 
 </ul>
 </div>

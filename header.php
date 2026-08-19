@@ -52,7 +52,7 @@
 
                             
 <li>
-<a href="<?= $pslash ?>contact.php">پشتیبانی</a>
+<a rel="nofollow" href="<?= $pslash ?>contact.php">پشتیبانی</a>
 </li>  
 </ul>
 </div>
