@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
     $name = trim(r('name'));
     $mobile = trim(r('mobile'));
     $mablagh = intval(latinnumber(trim(r('mablagh'))));
-    $onvan = trim(r('onvan'));
 
     if (empty($name)) {
         $errors[] = "لطفا نام و نام خانوادگی را وارد نمایید.";
@@ -23,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
     }
 
     if ($mablagh < 1000) {
-        $errors[] = "لطفا مبلغ معتبری (حداقل ۱,۰۰۰ ریال) وارد نمایید.";
+        $errors[] = "لطفا مبلغ معتبری (حداقل ۱,۰۰۰ تومان) وارد نمایید.";
     }
 
     if (empty($errors)) {
@@ -38,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
         }
 
         $orderid = getorderid();
+        $mablagh_rial = $mablagh * 10;
 
         rsaddnew("payments");
         rsadd("orderid", $orderid);
-        rsadd("mablagh", $mablagh);
+        rsadd("mablagh", $mablagh_rial);
         rsadd("name", sql($name));
         rsadd("mobile", sql($mobile));
-        rsadd("onvan", sql($onvan));
         rsadd("timestamp", time());
         rsadd("tarikh", dateshamsi());
         rsadd("ip", $_SERVER['REMOTE_ADDR']);
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
         }
 
         include_once("../orders/gateways/index.php");
-        payreq($mablagh, $orderid, $ret, 0);
+        payreq($mablagh_rial, $orderid, $ret, 0);
 
         include_once("../footer.php");
         exit();
@@ -127,21 +126,47 @@ include_once("../header.php");
     margin-bottom: 8px;
 }
 .pay-form-control {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 15px;
-    font-size: 15px;
-    border: 1px solid #cbd5e0;
-    border-radius: 8px;
-    background-color: #f8fafc;
-    transition: all 0.2s ease-in-out;
-    height: auto;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 15px !important;
+    font-size: 15px !important;
+    border: 1px solid #cbd5e0 !important;
+    border-radius: 8px !important;
+    background-color: #f8fafc !important;
+    transition: all 0.2s ease-in-out !important;
+    height: 48px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0 !important;
 }
 .pay-form-control:focus {
-    border-color: #3182ce;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-    outline: none;
+    border-color: #3182ce !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15) !important;
+    outline: none !important;
+}
+@media (min-width: 768px) {
+    .pay-form-row {
+        display: flex !important;
+        gap: 15px;
+    }
+    .pay-form-row .pay-form-group {
+        flex: 1;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        float: none !important;
+        width: auto !important;
+    }
+}
+@media (max-width: 767px) {
+    .pay-form-row {
+        display: block !important;
+    }
+    .pay-form-row .pay-form-group {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 15px;
+    }
 }
 .pay-btn-submit {
     background: linear-gradient(135deg, #2b6cb0 0%, #2b4c7e 100%);
@@ -209,31 +234,23 @@ include_once("../header.php");
     <?php endif; ?>
 
     <form method="POST" action="">
-        <div class="row-fluid">
-            <div class="span6 pay-form-group">
+        <div class="row-fluid pay-form-row">
+            <div class="span4 pay-form-group">
                 <label for="name">نام و نام خانوادگی <span class="pay-required-star">*</span></label>
                 <input type="text" id="name" name="name" class="pay-form-control" required value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" placeholder="مثلاً: علی محمدی">
             </div>
 
-            <div class="span6 pay-form-group">
-                <label for="mablagh">مبلغ پرداخت (ریال) <span class="pay-required-star">*</span></label>
-                <input type="number" id="mablagh" name="mablagh" class="pay-form-control" min="1000" step="1000" required value="<?= isset($_POST['mablagh']) ? htmlspecialchars($_POST['mablagh']) : '' ?>" placeholder="مثلاً: ۵۰۰۰۰۰">
-            </div>
-        </div>
-
-        <div class="row-fluid">
-            <div class="span12 pay-form-group">
+            <div class="span4 pay-form-group">
                 <label for="mobile">تلفن همراه <span class="pay-optional-text">(اختیاری)</span></label>
                 <input type="text" id="mobile" name="mobile" class="pay-form-control" value="<?= isset($_POST['mobile']) ? htmlspecialchars($_POST['mobile']) : '' ?>" placeholder="مثلاً: ۰۹۱۲۳۴۵۶۷۸۹">
             </div>
-        </div>
 
-        <div class="row-fluid">
-            <div class="span12 pay-form-group">
-                <label for="onvan">توضیحات / شرح پرداخت <span class="pay-optional-text">(اختیاری)</span></label>
-                <textarea id="onvan" name="onvan" class="pay-form-control" rows="3" placeholder="توضیحات یا علت پرداخت خود را وارد نمایید..."><?= isset($_POST['onvan']) ? htmlspecialchars($_POST['onvan']) : '' ?></textarea>
+            <div class="span4 pay-form-group">
+                <label for="mablagh">مبلغ پرداخت (تومان) <span class="pay-required-star">*</span></label>
+                <input type="number" id="mablagh" name="mablagh" class="pay-form-control" min="1000" step="1000" required value="<?= isset($_POST['mablagh']) ? htmlspecialchars($_POST['mablagh']) : '' ?>" placeholder="مثلاً: ۵۰۰۰۰">
             </div>
         </div>
+
 
         <div style="margin-top: 25px; text-align: center;">
             <button type="submit" name="submit_pay" value="1" class="pay-btn-submit">
@@ -243,6 +260,10 @@ include_once("../header.php");
     </form>
 </div>
 
+<?php
+$divinc = 0;
+?>
+</div></div></div></div>
 <?php
 require("../services.php");
 include_once("../footer.php");

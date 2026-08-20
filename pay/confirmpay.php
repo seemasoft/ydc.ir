@@ -35,7 +35,6 @@ if (!rss("select * from payments where orderid='$orderid'")) {
 $mablagh = $rs["mablagh"];
 $name = $rs["name"];
 $mobile = $rs["mobile"];
-$onvan = $rs["onvan"];
 $tarikh = $rs["tarikh"];
 $ip = $rs["ip"];
 $existing_au = $rs["au"];
@@ -51,6 +50,11 @@ if (!empty($existing_au)) {
         <a href="/" class="btn btn-primary" style="padding: 10px 25px; font-size: 15px; border-radius: 6px;">بازگشت به صفحه اصلی</a>
     </div>
     <?php
+    $divinc = 0;
+    ?>
+    </div></div></div></div>
+    <?php
+    require("../services.php");
     include_once("../footer.php");
     exit();
 }
@@ -75,10 +79,10 @@ if ($out == "ok") {
     $email_body .= "یک پرداخت آنلاین جدید با موفقیت در سیستم ثبت گردید:\n\n";
     $email_body .= "شماره سفارش: " . $orderid . "\n";
     $email_body .= "شماره پیگیری / مرجع: " . $ref_id . "\n";
+    $mablagh_toman = floor($mablagh / 10);
     $email_body .= "نام و نام خانوادگی: " . $name . "\n";
     $email_body .= "تلفن تماس: " . ($mobile ? $mobile : 'ثبت نشده') . "\n";
-    $email_body .= "مبلغ پرداخت: " . number_format($mablagh) . " ریال\n";
-    $email_body .= "شرح / توضیحات پرداخت: " . ($onvan ? $onvan : 'ثبت نشده') . "\n";
+    $email_body .= "مبلغ پرداخت: " . number_format($mablagh_toman) . " تومان (" . number_format($mablagh) . " ریال)\n";
     $email_body .= "تاریخ پرداخت: " . $tarikh . "\n";
     $email_body .= "آدرس IP: " . $ip . "\n\n";
     $email_body .= "سیستم پرداخت آنلاین با مبلغ دلخواه";
@@ -97,6 +101,11 @@ if ($out == "ok") {
         <a href="/" class="btn btn-success btn-large" style="padding: 10px 30px; font-size: 16px; border-radius: 6px;">بازگشت به صفحه اصلی</a>
     </div>
     <?php
+    $divinc = 0;
+    ?>
+    </div></div></div></div>
+    <?php
+    require("../services.php");
     include_once("../footer.php");
 } else {
     ?>
@@ -110,6 +119,11 @@ if ($out == "ok") {
         <a href="/" class="btn btn-default" style="padding: 10px 25px; font-size: 15px; border-radius: 6px; margin-right: 10px;">بازگشت به صفحه اصلی</a>
     </div>
     <?php
+    $divinc = 0;
+    ?>
+    </div></div></div></div>
+    <?php
+    require("../services.php");
     include_once("../footer.php");
     exit();
 }
