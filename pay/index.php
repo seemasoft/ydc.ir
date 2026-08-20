@@ -219,8 +219,8 @@ include_once("../header.php");
 
 <div class="pay-card">
     <div class="pay-card-header">
-        <h2>پرداخت آنلاین با مبلغ دلخواه</h2>
-        <p>لطفاً اطلاعات زیر را جهت پرداخت وجه فرمایید</p>
+        <h2>پرداخت آنلاین </h2>
+        <p>لطفاً اطلاعات زیر را جهت پرداخت وجه با مبلغ مورد نظر به مجموعه سیما سافت تکمیل فرمایید</p>
     </div>
 
     <?php if (!empty($errors)): ?>
@@ -254,8 +254,7 @@ include_once("../header.php");
 
         <div style="margin-top: 25px; text-align: center;">
             <button type="submit" name="submit_pay" value="1" class="pay-btn-submit">
-                <i class="fa fa-credit-card" style="margin-left: 8px;"></i> ورود به درگاه پرداخت و پرداخت آنلاین
-            </button>
+                <i class="fa fa-credit-card" style="margin-left: 8px;"></i>  پرداخت آنلاین   </button>
         </div>
     </form>
 </div>
