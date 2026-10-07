@@ -19,6 +19,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
 
 
     $tmphtml = file_get_contents("../orders/mailtemp/invoice.htm");
+    $tmphtml = str_replace("<invoicetitle>", "فاکتور فروش محصولات نرم افزاری", $tmphtml);
     $tmphtml = str_replace("<customer>",$rs["name"] ,$tmphtml);
     $tmphtml = str_replace("<customerphone>",$rs["mobile"] ,$tmphtml);
     $tmphtml = str_replace("<customeraddress>",$rs["address"] ,$tmphtml);
@@ -30,6 +31,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
     $tmphtml = str_replace("<company>",$company,$tmphtml);
     $tmphtml = str_replace("<address>",farsidigit($companyaddress),$tmphtml);
     $tmphtml = str_replace("<majmoo>",mablagh($rs["mablagh"]) ,$tmphtml);
+    $tmphtml = str_replace("<bankinfo>", "", $tmphtml);
 
     if ($_REQUEST["sigmohr"]) { $tmphtml = str_replace("<mohr>",'<img src="smohr.jpg" />' ,$tmphtml); } else { $tmphtml = str_replace("<mohr>","" ,$tmphtml);  }
 
@@ -58,6 +60,9 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
         $custom_company = sql($_POST['company']);
         $custom_companyaddress = sql($_POST['companyaddress']);
 
+        $doc_type = isset($_POST['doc_type']) ? $_POST['doc_type'] : 'invoice';
+        $invoice_title = ($doc_type === 'preinvoice') ? "پیش فاکتور فروش محصولات نرم افزاری" : "فاکتور فروش محصولات نرم افزاری";
+
         $item_titles = $_POST['item_title'];
         $item_prices = $_POST['item_price'];
 
@@ -74,6 +79,7 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
         }
 
         $tmphtml = file_get_contents("../orders/mailtemp/invoice.htm");
+        $tmphtml = str_replace("<invoicetitle>", $invoice_title, $tmphtml);
         $tmphtml = str_replace("<customer>", $custom_customer, $tmphtml);
         $tmphtml = str_replace("<customerphone>", $custom_phone, $tmphtml);
         $tmphtml = str_replace("<customeraddress>", $custom_address, $tmphtml);
@@ -84,6 +90,17 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
         $tmphtml = str_replace("<company>", $custom_company, $tmphtml);
         $tmphtml = str_replace("<address>", farsidigit($custom_companyaddress), $tmphtml);
         $tmphtml = str_replace("<majmoo>", mablagh($total_price), $tmphtml);
+
+        if (!empty($_POST["show_bank"])) {
+            $bank_html = '<div style="margin-top:15px; padding:10px; border:1px dashed #666; background-color:#f9f9f9; text-align:right; font-size:11pt; line-height:1.8;">' .
+                '<b>اطلاعات حساب جهت واریز مبلغ:</b><br>' .
+                'شماره کارت: <b>' . farsidigit('6037997651620065') . '</b><br>' .
+                'شماره شبا: <b>' . farsidigit('IR720170000000390181251004') . '</b>' .
+                '</div>';
+            $tmphtml = str_replace("<bankinfo>", $bank_html, $tmphtml);
+        } else {
+            $tmphtml = str_replace("<bankinfo>", "", $tmphtml);
+        }
 
         if ($_POST["sigmohr"]) {
             $tmphtml = str_replace("<mohr>", '<img src="smohr.jpg" />', $tmphtml);
@@ -97,8 +114,9 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
         $mpdf->SetDirectionality('rtl');
         $mpdf->WriteHTML($tmphtml);
 
+        $out_filename = ($doc_type === 'preinvoice' ? 'pishfaktor' : 'faktor') . $custom_orderid . '.pdf';
         if ($_POST["sigmohr"]) {
-            $mpdf->Output('faktor' . $custom_orderid . '.pdf', 'D');
+            $mpdf->Output($out_filename, 'D');
         } else {
             $mpdf->Output();
         }
@@ -120,6 +138,18 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
                         <h3 class="panel-title">مشخصات فاکتور و خریدار</h3>
                     </div>
                     <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: right;">نوع سند:</label>
+                            <div class="col-sm-10">
+                                <label style="font-weight: normal; margin-left: 25px; cursor: pointer;">
+                                    <input type="radio" name="doc_type" value="invoice" checked style="vertical-align: middle; margin: 0 0 0 5px;"> فاکتور
+                                </label>
+                                <label style="font-weight: normal; margin-left: 25px; cursor: pointer;">
+                                    <input type="radio" name="doc_type" value="preinvoice" style="vertical-align: middle; margin: 0 0 0 5px;"> پیش فاکتور
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label" style="text-align: right;">شماره فاکتور:</label>
                             <div class="col-sm-4">
@@ -172,6 +202,11 @@ if (isset($_REQUEST['id']) && $_REQUEST['id'] !== '') {
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="sigmohr" value="1" checked> درج مهر و امضا روی فاکتور
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="show_bank" value="1"> درج اطلاعات شماره حساب و کارت جهت واریز مبلغ
                                     </label>
                                 </div>
                             </div>

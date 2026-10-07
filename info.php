@@ -386,7 +386,7 @@ $postprice["pishtaz"] = $pishtaz;
 
 
 $company = "مرکز نرم افزار سیما سافت" ;
-$companyaddress = "شیراز خیابان ملاصدرا مجتمع دناسا طبقه 3 واحد 603" ;
+$companyaddress = "شیراز خیابان فلسطین نبش کوچه 2 - سیما سافت" ;
 
 function priceFormat($id){
 	global $price;
