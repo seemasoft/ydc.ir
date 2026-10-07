@@ -17,10 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_pay'])) {
 
     if (empty($name)) {
         $errors[] = "لطفا نام و نام خانوادگی را وارد نمایید.";
-    } elseif (strpos($name, "ا") === false && strpos($name, "ب") === false && strpos($name, "ی") === false && strpos($name, "ه") === false && strpos($name, "ر") === false && strpos($name, "م") === false && strpos($name, "د") === false && strpos($name, "ح") === false && strpos($name, "ز") === false && strpos($name, "ل") === false) {
-        $errors[] = "لطفا برای وارد کردن نام و نام خانوادگی از حروف فارسی استفاده نمایید.";
     }
-
+    
     if ($mablagh < 1000) {
         $errors[] = "لطفا مبلغ معتبری (حداقل ۱,۰۰۰ تومان) وارد نمایید.";
     }

@@ -29,7 +29,9 @@
         <script type="text/javascript" src="/js/app.js"></script>
 <? if($softname=="order" || $softname=="programming" ){ ?><script type="text/javascript" src="../js/validator.js"></script><? } ?>
 
-<script>window.whatsappButtonConfig = { whatsappNumber: "989173198608", callNumber: "09215855852", buttonText: "مشاوره در واتساپ" };</script>
+
+<script>window.whatsappButtonConfig = {  baleUsername: "seemasoftrobot",  baleButtonText: "پشتیبانی در بله",
+ whatsappNumber: "989173198608", callNumber: "09215855852", buttonText: "مشاوره در واتساپ" };</script>
 <script async defer src="/whatsapp-button.min.js"></script>
        
 <script async defer type="text/javascript">
